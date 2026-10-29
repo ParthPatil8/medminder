@@ -1,0 +1,13 @@
+.env
+*.db
+*.sqlite3
+__pycache__/
+.venv/
+venv/
+.pytest_cache/
+build/
+.dart_tool/
+.idea/
+.vscode/
+*.apk
+instance/
