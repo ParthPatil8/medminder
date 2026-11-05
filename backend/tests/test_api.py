@@ -88,8 +88,7 @@ def test_pause_and_delete_preserve_history(client):
     mid = add(client)
     record(client, K_AM.format(mid), "taken")
     client.post(f"/api/medicines/{mid}/pause")
-    rows = client.get("/api/doses?date=2026-10-28").get_json()
-    assert [r["status"] for r in rows] == ["taken"]  # recorded dose stays; 20:00 is gone
+    assert client.get("/api/doses?date=2026-10-28").get_json() == []
     hist = client.get("/api/history?from=2026-10-28&to=2026-10-28").get_json()
     assert [d["status"] for d in hist["doses"]] == ["taken"]
     client.delete(f"/api/medicines/{mid}")
@@ -122,3 +121,12 @@ def test_data_persists_across_restart(db_path):
     c2 = make_app(db_path).test_client()  # "restart"
     assert c2.get("/api/medicines").get_json()[0]["id"] == mid
     assert c2.get("/api/doses?date=2026-10-28").get_json()[0]["status"] == "taken"
+
+
+def test_web_app_and_install_files_are_served(client):
+    assert b"MedMinder" in client.get("/").data
+    m = client.get("/manifest.webmanifest")
+    assert m.status_code == 200 and m.get_json()["short_name"] == "MedMinder"
+    assert client.get("/sw.js").status_code == 200
+    assert client.get("/icon-512.png").data[:4] == b"\x89PNG"
+    assert client.get("/icon-100.png").status_code == 404

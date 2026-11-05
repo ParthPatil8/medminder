@@ -4,43 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MedMinder</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#00696f">
+<link rel="icon" href="/icon-192.png">
 <style>
-:root{--bg:#f5fafa;--card:#fff;--ink:#16302f;--mut:#5b7270;--line:#d5e3e2;--pri:#0e7c86;--onpri:#fff;--bad:#c62828;
---taken:#2e7d32;--skipped:#8d6e00;--missed:#c62828;--due:#00796b;--upcoming:#1565c0}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1b1b;--card:#172626;--ink:#e3f0ef;--mut:#9bb4b2;--line:#2a3f3e;--pri:#4fc3cd;--onpri:#06292c;--bad:#ef9a9a;
---taken:#81c784;--skipped:#ffd54f;--missed:#ef9a9a;--due:#4db6ac;--upcoming:#90caf9}}
-*{box-sizing:border-box}body{margin:0;font:16px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-main{max-width:720px;margin:0 auto;padding:16px 16px 90px}
-h1{font-size:1.4rem;margin:0}h2{font-size:1.1rem;margin:18px 0 8px}small,.mut{color:var(--mut)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:8px 0}
+:root{--bg:#f4fafa;--sc:#e8f0f0;--ink:#161d1d;--mut:#4a5757;--line:#bec9c8;--pri:#00696f;--onpri:#fff;--pc:#9cf0f6;--onpc:#002022;--bad:#ba1a1a;
+--taken:#1b6e2f;--skipped:#7a5900;--missed:#ba1a1a;--due:#00696f;--upcoming:#1a5fb4;--wbg:#fff3df;--wink:#6a4300;--card:var(--sc)}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1415;--sc:#1a2122;--ink:#dde4e4;--mut:#a9b8b8;--line:#3f4949;--pri:#82d3da;--onpri:#00363a;--pc:#004f54;--onpc:#9cf0f6;--bad:#ffb4ab;
+--taken:#8bd79b;--skipped:#f0c24d;--missed:#ffb4ab;--due:#82d3da;--upcoming:#a6c8ff;--wbg:#3a2f14;--wink:#ffdea6}}
+*{box-sizing:border-box}
+body{margin:0;font:400 16px/1.5 Roboto,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+main{max-width:720px;margin:0 auto;padding:20px 16px 110px}
+h1{font-size:1.65rem;font-weight:400;margin:0;line-height:1.25}
+h2{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:22px 0 6px;font-weight:600}
+small,.mut{color:var(--mut)}.kv{margin:10px 0}
+.card{background:var(--sc);border-radius:16px;padding:16px;margin:8px 0}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1;min-width:0}
-button{font:inherit;border:1px solid var(--pri);background:transparent;color:var(--pri);border-radius:10px;padding:8px 14px;cursor:pointer}
-button.p{background:var(--pri);color:var(--onpri)}button.d{border-color:var(--bad);color:var(--bad)}
-button:disabled{opacity:.5}
-input,textarea{font:inherit;width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
-label{display:block;margin:10px 0 4px;font-weight:600}.err{color:var(--bad);font-size:.9rem}
-.chip{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.8rem;font-weight:600;border:1px solid currentColor}
-.t{font-size:1.25rem;font-weight:700;min-width:58px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--line)}
-nav button{flex:1;border:0;border-radius:0;padding:14px 4px;color:var(--mut)}nav button.on{color:var(--pri);font-weight:700}
-.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
-.sel{padding:6px 12px;border-radius:20px}.sel.on{background:var(--pri);color:var(--onpri)}
-.banner{background:var(--bad);color:#fff;padding:10px;border-radius:10px;margin:8px 0}
-
-:root{--wbg:#fff4e5;--wink:#7a4a00}@media(prefers-color-scheme:dark){:root{--wbg:#3a2e12;--wink:#ffd9a0}}
-.card{box-shadow:0 1px 3px rgba(0,0,0,.07)}
-.hero{background:var(--pri);color:var(--onpri);border-radius:20px;padding:16px;margin-bottom:10px}
-.hero small{color:inherit;opacity:.85}.hero h1{font-size:1.6rem}
-.stats{display:flex;gap:8px;margin-top:12px}.stats>div{flex:1;background:rgba(255,255,255,.16);border-radius:12px;padding:8px;text-align:center}
-.stats b{display:block;font-size:1.15rem}
-.warn{background:var(--wbg);color:var(--wink);border:1px solid var(--wink);border-radius:12px;padding:10px;margin:8px 0;font-size:.92rem}
-.av{width:42px;height:42px;border-radius:12px;color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.2rem;flex:none}
+button{font:inherit;font-weight:500;font-size:.875rem;border:1px solid var(--line);background:transparent;color:var(--pri);border-radius:20px;padding:10px 20px;cursor:pointer}
+button.p{background:var(--pri);color:var(--onpri);border-color:var(--pri)}button.d{color:var(--bad)}button:disabled{opacity:.5}
+button:hover{filter:brightness(.96)}
+.sel{border-radius:8px;padding:6px 14px;color:var(--ink)}.sel.on{background:var(--pc);color:var(--onpc);border-color:transparent}
+input,textarea{font:inherit;width:100%;padding:14px 12px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink)}
+input:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+label{display:block;margin:14px 0 4px;font-size:.8rem;font-weight:500;color:var(--mut)}.err{color:var(--bad);font-size:.85rem;margin-top:4px}
+.chip{display:inline-block;padding:3px 12px;border-radius:8px;font-size:.78rem;font-weight:500;border:1px solid currentColor;background:color-mix(in srgb,currentColor 10%,transparent)}
+.t{font-size:1.25rem;font-weight:500;min-width:58px;font-variant-numeric:tabular-nums}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--sc);padding:10px 0 12px;z-index:5}
+nav button{flex:1;border:0;background:none;border-radius:0;padding:0;color:var(--mut);font-size:.75rem;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ind{width:64px;height:32px;border-radius:16px;display:grid;place-items:center}
+nav button.on{color:var(--ink);font-weight:600}nav button.on .ind{background:var(--pc);color:var(--onpc)}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--pri)}
+.hero{background:var(--pc);color:var(--onpc);border-radius:28px;padding:20px;margin-bottom:12px}.hero small{color:inherit;opacity:.8}
+.stats{display:flex;gap:8px;margin-top:14px}.stats>div{flex:1;background:var(--bg);color:var(--ink);border-radius:16px;padding:10px;text-align:center}
+.stats b{display:block;font-size:1.15rem;font-weight:500}.stats small{color:var(--mut)}
+.warn{background:var(--wbg);color:var(--wink);border-radius:12px;padding:12px;margin:8px 0;font-size:.9rem}
+.banner{background:var(--bad);color:var(--bg);padding:12px;border-radius:12px;margin:8px 0}
+.av{width:42px;height:42px;border-radius:12px;color:#fff;display:grid;place-items:center;font-weight:500;font-size:1.15rem;flex:none}
 .search{margin:10px 0}
-.chart{display:flex;gap:3px;align-items:flex-end;height:90px;margin:12px 0 4px}
-.bc{flex:1;height:100%;display:flex;align-items:flex-end}.bc i{display:block;width:100%;border-radius:4px 4px 0 0}
-.tiles{display:flex;gap:8px;margin-top:10px}.tiles>div{flex:1;border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center}
-.tiles b{display:block;font-size:1.2rem}
-nav button{font-size:.75rem;padding:8px 4px}
+.chart{display:flex;gap:3px;align-items:flex-end;height:90px;margin:12px 0 4px}.bc{flex:1;height:100%;display:flex;align-items:flex-end}.bc i{display:block;width:100%;border-radius:3px 3px 0 0}
+.tiles{display:flex;gap:8px;margin-top:10px}.tiles>div{flex:1;background:var(--bg);border-radius:12px;padding:8px;text-align:center}.tiles b{display:block;font-size:1.2rem;font-weight:500}
+.fab{position:fixed;right:20px;bottom:100px;display:flex;align-items:center;gap:8px;padding:16px 20px;border-radius:16px;box-shadow:0 3px 8px rgba(0,0,0,.25);z-index:4}
+.printonly{display:none}
+@media print{nav,.fab,button,.noprint{display:none!important}.printonly{display:block!important}body{background:#fff;color:#000}.card{border:1px solid #999;break-inside:avoid;background:#fff}}
 </style>
 </head>
 <body>
@@ -50,7 +55,7 @@ nav button{font-size:.75rem;padding:8px 4px}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-const S = { view:'today', today:'', meds:[], doses:[], day:'', hist:null, histDays:7, histMed:'', error:'', form:null, busy:false, q:'', adh:null };
+const S = { view:'today', today:'', meds:[], doses:[], day:'', hist:null, histDays:7, histMed:'', error:'', form:null, busy:false, q:'', adh:null, detail:null };
 
 async function api(path, opt = {}) {
   let r;
@@ -83,7 +88,7 @@ async function loadHist() {
   [S.hist, S.adh] = await Promise.all([api('/history?' + r), api('/adherence?' + r)]);
 }
 async function act(fn, ok) {
-  try { await fn(); S.error = ''; await boot(); if (ok) toast(ok); }
+  try { await fn(); S.error = ''; S.detail = null; await boot(); if (ok) toast(ok); }
   catch (e) { alert(e.message); }
 }
 function toast(m) { const t = document.createElement('div'); t.className = 'banner'; t.style.cssText = 'position:fixed;top:10px;left:10px;right:10px;background:var(--pri);color:var(--onpri);z-index:9;max-width:700px;margin:auto'; t.textContent = m; document.body.append(t); setTimeout(() => t.remove(), 2200); }
@@ -101,7 +106,7 @@ function doseCard(d, actions) {
 const ring = (a, b) => { const p = b ? a / b : 0, c = 2 * Math.PI * 30;
   return `<svg width="76" height="76" viewBox="0 0 76 76"><circle cx="38" cy="38" r="30" fill="none" stroke="currentColor" opacity=".25" stroke-width="8"/><circle cx="38" cy="38" r="30" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c * p} ${c}" transform="rotate(-90 38 38)"/><text x="38" y="43" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor">${Math.round(p * 100)}%</text></svg>`; };
 const greet = () => { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening'; };
-const GROUPS = [['🌅 Morning', 0, 12], ['☀️ Afternoon', 12, 17], ['🌆 Evening', 17, 21], ['🌙 Night', 21, 24]];
+const GROUPS = [['Morning', 0, 12], ['Afternoon', 12, 17], ['Evening', 17, 21], ['Night', 21, 24]];
 function grouped(doses) {
   return GROUPS.map(([label, a, b]) => {
     const g = doses.filter(d => { const h = +d.scheduled_at.slice(11, 13); return h >= a && h < b; });
@@ -116,28 +121,47 @@ function vToday() {
   return `<div class="hero"><div class="row"><div class="grow"><small>${greet()}</small><h1>MedMinder</h1><div>${nice(S.day)}</div></div>${ring(taken, total)}</div>
     <div class="stats"><div><b>${active}</b><small>active</small></div><div><b>${taken}/${total}</b><small>taken</small></div><div><b>${next ? next.scheduled_at.slice(11, 16) : '—'}</b><small>next dose</small></div></div></div>
   <div class="row" style="margin:10px 0"><button data-a="day" data-n="-1">‹ Prev</button><button data-a="day" data-n="0">Today</button><button data-a="day" data-n="1">Next ›</button></div>
-  ${late ? `<div class="warn">⚠ ${late} dose${late > 1 ? 's are' : ' is'} past its time. Record what actually happened (Taken or Skip). Do not take extra doses to catch up — ask your clinician or pharmacist what to do about a missed dose.</div>` : ''}
+  ${late ? `<div class="warn">${late} dose${late > 1 ? 's are' : ' is'} past its time. Record what actually happened (Taken or Skip). Do not take extra doses to catch up — ask your clinician or pharmacist what to do about a missed dose.</div>` : ''}
   ${S.meds.length ? (grouped(S.doses) || '<p class="mut">No doses scheduled for this day.</p>')
   : `<div class="card"><b>No medicines yet</b><p class="mut">Add your first medicine, or load demonstration data.</p>
     <button class="p" data-a="newmed">Add medicine</button> <button data-a="demo">Load demo data</button></div>`}`;
 }
 
 const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0) * 7 % 360;
+const dd = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 864e5);
+function course(m) {
+  if (!m.end_date) return `<small class="mut">Ongoing since ${m.start_date}</small>`;
+  const total = dd(m.start_date, m.end_date) + 1, el = Math.min(Math.max(dd(m.start_date, S.today) + 1, 0), total);
+  const left = Math.max(dd(S.today, m.end_date), 0);
+  const txt = S.today > m.end_date ? 'Course completed' : S.today < m.start_date ? 'Starts ' + m.start_date
+    : 'Day ' + el + ' of ' + total + ' · ' + left + ' day' + (left === 1 ? '' : 's') + ' remaining';
+  return `<div class="bar" style="margin:8px 0 4px"><i style="width:${100 * el / total}%"></i></div><small class="mut">${txt}</small>`;
+}
 function medCards() {
   const q = S.q.trim().toLowerCase();
   const list = S.meds.filter(m => !q || (m.name + ' ' + m.dosage).toLowerCase().includes(q));
-  return list.map(m => `<div class="card"><div class="row"><div class="av" style="background:hsl(${hue(m.name)} 55% 42%)">${esc(m.name[0].toUpperCase())}</div>
+  return list.map(m => `<div class="card"><div class="row" data-a="detail" data-id="${m.id}" style="cursor:pointer"><div class="av" style="background:hsl(${hue(m.name)} 55% 38%)">${esc(m.name[0].toUpperCase())}</div>
     <div class="grow"><b>${esc(m.name)}</b> ${m.paused ? '<span class="chip">Paused</span>' : ''}${m.is_demo ? ' <span class="chip">Demo</span>' : ''}<br>
-    <small>${esc(m.dosage)} · ${m.days_of_week ? m.days_of_week.map(i => DAYS[i]).join(', ') : 'Every day'} · ${m.times.join(', ')}</small>
-    ${m.instructions ? '<br><small>' + esc(m.instructions) + '</small>' : ''}</div></div>
-    <div class="row" style="margin-top:8px"><button data-a="edit" data-id="${m.id}">Edit</button>
+    <small>${esc(m.dosage)} · ${m.days_of_week ? m.days_of_week.map(i => DAYS[i]).join(', ') : 'Every day'} · ${m.times.join(', ')}</small></div></div>
+    ${m.end_date ? course(m) : ''}
+    <div class="row" style="margin-top:10px"><button data-a="detail" data-id="${m.id}">Details</button><button data-a="edit" data-id="${m.id}">Edit</button>
     <button data-a="pause" data-id="${m.id}" data-p="${m.paused ? 0 : 1}">${m.paused ? 'Resume' : 'Pause'}</button>
     <button class="d" data-a="del" data-id="${m.id}">Delete</button></div></div>`).join('')
-    || `<p class="mut">${S.meds.length ? 'No medicines match your search.' : 'No medicines yet. Tap Add.'}</p>`;
+    || `<p class="mut">${S.meds.length ? 'No medicines match your search.' : 'No medicines yet. Use Add medicine.'}</p>`;
 }
 function vMeds() {
-  return `<div class="row"><h1 class="grow">Medicines</h1><button class="p" data-a="newmed">+ Add</button></div>
-  <input id="q" class="search" placeholder="Search medicines…" value="${esc(S.q)}"><div id="medlist">${medCards()}</div>`;
+  return `<h1>Medicines</h1>
+  <input id="q" class="search" placeholder="Search medicines" value="${esc(S.q)}"><div id="medlist">${medCards()}</div>
+  <button class="p fab" data-a="newmed"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="${ICON.plus}"/></svg>Add medicine</button>`;
+}
+function vDetail() {
+  const m = S.detail, kv = (k, v) => v ? `<div class="kv"><small>${k}</small><div>${esc(v)}</div></div>` : '';
+  return `<div class="row"><button data-a="back">Back</button></div><h1 style="margin:12px 0 4px">${esc(m.name)}</h1>
+  <div class="card">${kv('Dosage', m.dosage)}${kv('Schedule', (m.days_of_week ? m.days_of_week.map(i => DAYS[i]).join(', ') : 'Every day') + ' at ' + m.times.join(', '))}
+  ${kv('Dates', 'From ' + m.start_date + (m.end_date ? ' to ' + m.end_date : ' (ongoing)'))}${kv('Status', m.paused ? 'Paused' : 'Active')}${kv('Instructions', m.instructions)}${kv('Notes', m.notes)}${course(m)}</div>
+  <div class="row"><button data-a="edit" data-id="${m.id}">Edit</button><button data-a="pause" data-id="${m.id}" data-p="${m.paused ? 0 : 1}">${m.paused ? 'Resume' : 'Pause'}</button><button class="d" data-a="del" data-id="${m.id}">Delete</button></div>
+  <h2>Upcoming doses</h2>${m.upcoming.map(x => doseCard(x, false)).join('') || '<p class="mut">None in the next 7 days.</p>'}
+  <h2>Recent history</h2>${[...m.recent].reverse().map(x => doseCard(x, false)).join('') || '<p class="mut">No recent records.</p>'}`;
 }
 
 const MED_NAMES = [
@@ -171,7 +195,7 @@ function vForm() {
   <label>Frequency</label><div class="row"><button class="sel ${!f.days ? 'on' : ''}" data-a="fdays" data-v="all">Every day</button>
   <button class="sel ${f.days ? 'on' : ''}" data-a="fdays" data-v="sel">Selected days</button></div>
   ${f.days ? `<div class="row" style="margin-top:6px">${DAYS.map((n, i) => `<button class="sel ${f.days.includes(i) ? 'on' : ''}" data-a="fday" data-i="${i}">${n}</button>`).join('')}</div>${er('days_of_week')}` : ''}
-  <label>Reminder times</label><div class="row">${f.times.map(t => `<button data-a="rmtime" data-t="${t}">${t} ✕</button>`).join('')}
+  <label>Reminder times</label><div class="row">${f.times.map(t => `<button data-a="rmtime" data-t="${t}">${t} &times;</button>`).join('')}
   <input type="time" id="f_time" style="width:auto"><button data-a="addtime">Add time</button></div>${er('times')}
   <p class="mut"><small>Enter schedules exactly as prescribed by your clinician. MedMinder does not calculate or recommend doses.</small></p>
   <div class="row"><button class="p" data-a="save" ${S.busy ? 'disabled' : ''}>${S.busy ? 'Saving…' : 'Save'}</button><button data-a="cancel">Cancel</button></div>`;
@@ -194,15 +218,22 @@ function vHist() {
   const bars = days.map(d => { const e = by[d], p = e && e.percentage != null ? e.percentage : null;
     const col = p == null ? 'var(--line)' : p >= 80 ? 'var(--taken)' : p >= 50 ? 'var(--skipped)' : 'var(--missed)';
     return `<div class="bc" title="${d}: ${p == null ? 'no data' : p + '%'}"><i style="height:${p == null ? 4 : Math.max(p, 4)}%;background:${col}"></i></div>`; }).join('');
-  return `<div class="row"><h1 class="grow">History</h1><button data-a="csv">⬇ Export CSV</button></div>
+  const per = {};
+  (h?.doses || []).forEach(d => { const p = per[d.medicine_name] ||= { t: 0, s: 0, m: 0 };
+    if (d.status === 'taken') p.t++; else if (d.status === 'skipped') p.s++; else if (d.status === 'missed') p.m++; });
+  const perRows = Object.entries(per).map(([n, p]) => { const den = p.t + p.s + p.m, pc = den ? Math.round(1000 * p.t / den) / 10 : null;
+    return `<div class="kv"><div class="row"><b class="grow">${esc(n)}</b><span>${pc == null ? 'No data' : pc + '%'}</span></div><div class="bar" style="margin:4px 0"><i style="width:${pc || 0}%"></i></div><small class="mut">${p.t} taken, ${p.s} skipped, ${p.m} missed</small></div>`; }).join('');
+  return `<div class="printonly"><h1>MedMinder adherence report</h1><p>Generated ${nice(S.today)}. Period: last ${S.histDays} days. Self-recorded data; not a medical record.</p></div>
+  <div class="row"><h1 class="grow">History</h1><button class="noprint" data-a="print">Print report</button><button class="noprint" data-a="csv">Export CSV</button></div>
   <div class="row">${[7, 14, 30].map(n => `<button class="sel ${S.histDays === n ? 'on' : ''}" data-a="hdays" data-n="${n}">${n} days</button>`).join('')}</div>
   <div class="row" style="margin-top:6px"><button class="sel ${!S.histMed ? 'on' : ''}" data-a="hmed" data-id="">All</button>
   ${S.meds.map(m => `<button class="sel ${S.histMed == m.id ? 'on' : ''}" data-a="hmed" data-id="${m.id}">${esc(m.name)}</button>`).join('')}</div>
   ${a ? `<div class="card"><b style="font-size:1.3rem">${a.percentage == null ? 'No data yet' : a.percentage + '% adherence'}</b>
     <div class="chart">${bars}</div><div class="row"><small class="grow">${nice(days[0])}</small><small>${nice(days[days.length - 1])}</small></div>
     <div class="tiles"><div><b style="color:var(--taken)">${a.taken}</b><small>taken</small></div><div><b style="color:var(--skipped)">${a.skipped}</b><small>skipped</small></div>
-    <div><b style="color:var(--missed)">${a.missed}</b><small>missed</small></div><div><b>🔥 ${streak(by)}</b><small>perfect days</small></div></div>
+    <div><b style="color:var(--missed)">${a.missed}</b><small>missed</small></div><div><b>${streak(by)}</b><small>perfect days</small></div></div>
     <p><small>Adherence = taken ÷ (taken + skipped + missed). Upcoming doses are not counted. Bar colours: green ≥80%, amber ≥50%, red below.</small></p></div>` : ''}
+  ${perRows ? `<div class="card"><b>By medicine</b>${perRows}</div>` : ''}
   ${list.map(d => { const date = d.scheduled_at.slice(0, 10); const hd = date !== last ? `<h2>${nice(date)}</h2>` : ''; last = date; return hd + doseCard(d, false); }).join('')
     || '<p class="mut">No dose history yet. Doses you record will appear here.</p>'}`;
 }
@@ -211,6 +242,7 @@ function vSettings() {
   const n = 'Notification' in window;
   return `<h1>Settings</h1>
   <div class="card"><b>Server</b><br><small>Connected · today is ${S.today} (server timezone)</small></div>
+  <div class="card"><b>Install on phone</b><p class="mut">In Chrome on Android, open the menu and choose Install app (or Add to Home screen) to use MedMinder like a native app.</p></div>
   <div class="card"><b>Demonstration data</b><p class="mut">Adds clearly labelled fictional medicines and a week of sample history (not prescriptions). Clearing removes only demo records.</p>
   <div class="row"><button class="p" data-a="demo">Load / reset demo data</button><button data-a="cleardemo">Clear demo data</button></div></div>
   <div class="card"><b>Browser reminders</b><p class="mut">${n ? 'Shows a notification while this page is open. Phone browsers only allow this on secure (https) addresses; reliable background reminders need an Android app.' : 'Notifications are not available in this browser.'}</p>
@@ -218,12 +250,19 @@ function vSettings() {
   <div class="card"><b>Privacy &amp; limitations</b><p class="mut"><small>MedMinder stores the medicines and dose records you enter on the server it runs on (SQLite locally, or PostgreSQL if deployed). Nothing else is collected; no accounts or analytics. This demo has no login, so anyone who can reach the address can see the data. MedMinder is a reminder and record-keeping tool: it gives no medical advice, and a missed dose is never a reason to take extra medicine. Follow your clinician's instructions.</small></p></div>`;
 }
 
+const ICON = {
+  today: 'M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 16H5V8h14v11zM7 10h5v5H7z',
+  meds: 'M7 3h10v3H7V3zM6 7h12v12a2 2 0 01-2 2H8a2 2 0 01-2-2V7zm3 4v2h2v2h2v-2h2v-2h-2V9h-2v2H9z',
+  history: 'M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z',
+  settings: 'M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z',
+  plus: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' };
 function render() {
-  const items = [['today', 'Today', '🏠'], ['meds', 'Medicines', '💊'], ['history', 'History', '📊'], ['settings', 'Settings', '⚙️']];
-  $('#nav').innerHTML = items.map(([k, l, ic]) => `<button class="${S.view === k && !S.form ? 'on' : ''}" data-a="nav" data-v="${k}"><span style="font-size:1.3rem;display:block">${ic}</span>${l}</button>`).join('');
+  const items = [['today', 'Today'], ['meds', 'Medicines'], ['history', 'History'], ['settings', 'Settings']];
+  $('#nav').innerHTML = items.map(([k, l]) => `<button class="${S.view === k && !S.form ? 'on' : ''}" data-a="nav" data-v="${k}"><span class="ind"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="${ICON[k]}"/></svg></span>${l}</button>`).join('');
   let h = '';
   if (S.error) h = `<h1>MedMinder</h1><div class="banner">${esc(S.error)}</div><button class="p" data-a="retry">Retry</button>`;
   else if (S.form) h = vForm();
+  else if (S.detail) h = vDetail();
   else h = { today: vToday, meds: vMeds, history: vHist, settings: vSettings }[S.view]();
   $('#app').innerHTML = h;
 }
@@ -248,14 +287,14 @@ async function save() {
     start_date: f.start_date, end_date: f.end_date || null, days_of_week: f.days ? [...f.days].sort() : null, times: [...f.times].sort() };
   try {
     await api(f.id ? '/medicines/' + f.id : '/medicines', { method: f.id ? 'PUT' : 'POST', body });
-    S.form = null; S.busy = false; await boot(); toast('Saved.');
+    S.form = null; S.detail = null; S.busy = false; await boot(); toast('Saved.');
   } catch (e) { S.busy = false; f.errors = e.fields || {}; render(); alert(e.message); } // form data is kept
 }
 
 document.addEventListener('click', async ev => {
   const b = ev.target.closest('[data-a]'); if (!b) return;
   const a = b.dataset.a, id = b.dataset.id;
-  if (a === 'nav') { S.form = null; S.view = b.dataset.v; if (S.view === 'history') { try { await loadHist(); } catch (e) { S.error = e.message; } } render(); }
+  if (a === 'nav') { S.form = null; S.detail = null; S.view = b.dataset.v; if (S.view === 'history') { try { await loadHist(); } catch (e) { S.error = e.message; } } render(); }
   else if (a === 'retry') boot();
   else if (a === 'day') { S.day = b.dataset.n === '0' ? S.today : shift(S.day, +b.dataset.n); boot(); }
   else if (a === 'taken' || a === 'skipped') { if (a === 'skipped' && !confirm('Mark this dose as skipped?')) return; act(() => api('/doses/record', { method: 'POST', body: { dose_id: id, outcome: a } })); }
@@ -280,6 +319,9 @@ document.addEventListener('click', async ev => {
     const u = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })), l = document.createElement('a');
     l.href = u; l.download = 'medminder-history.csv'; l.click(); URL.revokeObjectURL(u);
   }
+  else if (a === 'detail') { try { S.detail = await api('/medicines/' + id); render(); window.scrollTo(0, 0); } catch (e) { alert(e.message); } }
+  else if (a === 'back') { S.detail = null; render(); }
+  else if (a === 'print') window.print();
   else if (a === 'notif') { await Notification.requestPermission(); render(); }
 });
 
@@ -296,6 +338,7 @@ setInterval(async () => {
     }
   } catch {}
 }, 30000);
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => {});
 boot();
 </script>
 </body>

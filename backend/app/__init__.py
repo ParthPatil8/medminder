@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, send_from_directory
+from flask import Flask, abort, send_from_directory
 from flask_cors import CORS
 
 from config import Config
@@ -18,6 +18,25 @@ def create_app(overrides: dict | None = None) -> Flask:
     @app.get("/")
     def index():  # the web app: same origin as the API, nothing to build
         return send_from_directory(static_dir, "index.html")
+
+    @app.get("/manifest.webmanifest")
+    def manifest():
+        return send_from_directory(static_dir, "manifest.webmanifest",
+                                   mimetype="application/manifest+json")
+
+    @app.get("/sw.js")
+    def service_worker():
+        return send_from_directory(static_dir, "sw.js", mimetype="text/javascript")
+
+    @app.get("/icon-<int:size>.png")
+    def icon(size):
+        if size not in (192, 512):
+            abort(404)
+        return send_from_directory(static_dir, f"icon-{size}.png")
+
+    @app.get("/.well-known/assetlinks.json")  # optional: full-screen Android package
+    def assetlinks():
+        return send_from_directory(static_dir, "assetlinks.json", mimetype="application/json")
 
     db.init_app(app)
     origins = [o.strip() for o in app.config["CORS_ORIGINS"].split(",")]
