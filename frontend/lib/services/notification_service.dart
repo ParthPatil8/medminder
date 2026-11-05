@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
@@ -10,8 +12,7 @@ import '../models/models.dart';
 ///
 /// Notification ids are deterministic, so rescheduling replaces rather than
 /// duplicates: daily = medId*1000 + timeIndex; weekly = medId*1000 +
-/// (weekday+1)*100 + timeIndex. Inexact (idle-allowed) alarms are used, so no
-/// exact-alarm permission is needed; delivery may be a few minutes late.
+/// (weekday+1)*100 + timeIndex. Exact alarms are used when Android allows them (otherwise inexact, which can be a few minutes late).
 class NotificationService {
   final _plugin = FlutterLocalNotificationsPlugin();
   bool _ready = false;
@@ -49,7 +50,12 @@ class NotificationService {
     if (supported && _ready) await _plugin.cancelAll();
   }
 
-  static const _details = NotificationDetails(
+  bool alarmMode = true;
+  AndroidScheduleMode _mode = AndroidScheduleMode.inexactAllowWhileIdle;
+  bool get exact => _mode == AndroidScheduleMode.exactAllowWhileIdle;
+
+  // Ordinary notification (the previous behaviour).
+  static const _normal = NotificationDetails(
     android: AndroidNotificationDetails(
       'dose_reminders',
       'Dose reminders',
@@ -59,6 +65,47 @@ class NotificationService {
     ),
   );
 
+  // Alarm style: alarm volume, repeats the sound until tapped or dismissed
+  // (flag 4 = FLAG_INSISTENT), long vibration, stops by itself after 5 minutes.
+  static final _alarm = NotificationDetails(
+    android: AndroidNotificationDetails(
+      'dose_alarm',
+      'Dose alarms',
+      channelDescription: 'Alarm-style reminders for your scheduled medicine doses',
+      importance: Importance.max,
+      priority: Priority.max,
+      category: AndroidNotificationCategory.alarm,
+      audioAttributesUsage: AudioAttributesUsage.alarm,
+      additionalFlags: Int32List.fromList(<int>[4]),
+      vibrationPattern: Int64List.fromList(<int>[0, 800, 400, 800, 400, 800]),
+      enableVibration: true,
+      playSound: true,
+      timeoutAfter: 300000,
+      visibility: NotificationVisibility.public,
+    ),
+  );
+
+  NotificationDetails get _details => alarmMode ? _alarm : _normal;
+
+  // Exact alarms when Android allows them; otherwise fall back to inexact.
+  Future<void> _pickMode() async {
+    final ok = await _android?.canScheduleExactNotifications() ?? false;
+    _mode = ok ? AndroidScheduleMode.exactAllowWhileIdle : AndroidScheduleMode.inexactAllowWhileIdle;
+  }
+
+  Future<void> scheduleTest() async {
+    if (!supported || !_ready) return;
+    await _pickMode();
+    await _plugin.zonedSchedule(
+      999998,
+      'MedMinder test reminder',
+      'This reminder was scheduled one minute ago.',
+      tz.TZDateTime.now(tz.local).add(const Duration(minutes: 1)),
+      _details,
+      androidScheduleMode: _mode,
+    );
+  }
+
   Future<void> showTest() async {
     if (!supported || !_ready) return;
     await _plugin.show(999999, 'MedMinder test reminder',
@@ -67,6 +114,7 @@ class NotificationService {
 
   Future<void> scheduleAll(List<Medicine> meds, String today) async {
     if (!supported || !_ready) return;
+    await _pickMode();
     final now = tz.TZDateTime.now(tz.local);
     for (final m in meds) {
       if (m.paused) continue;
@@ -99,7 +147,7 @@ class NotificationService {
       '${m.dosage} · $time$extra',
       when,
       _details,
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      androidScheduleMode: _mode,
       matchDateTimeComponents: repeat,
     );
   }

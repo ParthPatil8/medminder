@@ -124,6 +124,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
               value: s.remindersEnabled,
               onChanged: (v) => s.setReminders(v),
             ),
+            SwitchListTile(
+              title: const Text('Alarm-style reminders'),
+              subtitle: const Text(
+                  'Rings repeatedly at alarm volume until you tap or dismiss it (stops after 5 minutes).'),
+              value: s.alarmMode,
+              onChanged: s.remindersEnabled ? (v) => s.setAlarmMode(v) : null,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: () async {
+                  await s.notifier.scheduleTest();
+                  if (context.mounted) {
+                    snack(context, 'Test reminder set for 1 minute from now. Lock your phone and wait.');
+                  }
+                },
+                icon: const Icon(Icons.alarm),
+                label: const Text('Test reminder in 1 minute'),
+              ),
+            ),
             if (!s.notificationsAllowed)
               Align(
                 alignment: Alignment.centerLeft,

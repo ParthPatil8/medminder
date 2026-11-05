@@ -19,6 +19,7 @@ class AppState extends ChangeNotifier {
   int version = 0; // bumps whenever server data is reloaded
   bool initialized = false, onboarded = false, loading = false, connected = false;
   bool remindersEnabled = true, notificationsAllowed = false;
+  bool alarmMode = true;
   String baseUrl = kDefaultApiUrl, timezone = 'Asia/Kolkata';
   String? error, serverToday;
   ThemeMode themeMode = ThemeMode.system;
@@ -34,6 +35,8 @@ class AppState extends ChangeNotifier {
     api = ApiClient(baseUrl);
     onboarded = p.getBool('onboarded') ?? false;
     remindersEnabled = p.getBool('reminders') ?? true;
+    alarmMode = p.getBool('alarm') ?? true;
+    notifier.alarmMode = alarmMode;
     final t = p.getInt('theme') ?? 0;
     themeMode = ThemeMode.values[t.clamp(0, ThemeMode.values.length - 1).toInt()];
     initialized = true;
@@ -108,6 +111,14 @@ class AppState extends ChangeNotifier {
     remindersEnabled = on;
     await _prefs?.setBool('reminders', on);
     if (on) notificationsAllowed = await notifier.requestPermission();
+    await rescheduleReminders();
+    notifyListeners();
+  }
+
+  Future<void> setAlarmMode(bool on) async {
+    alarmMode = on;
+    notifier.alarmMode = on;
+    await _prefs?.setBool('alarm', on);
     await rescheduleReminders();
     notifyListeners();
   }
